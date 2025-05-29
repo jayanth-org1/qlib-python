@@ -12,6 +12,7 @@ import logging
 import platform
 import subprocess
 from .log import get_module_logger
+from .utils.serial import Serializable  # Circular import - utils.serial imports from config which imports from this
 
 
 # init qlib

@@ -145,7 +145,8 @@ class TimeInspector:
         try:
             yield None
         finally:
-            pass
+            # Log potentially sensitive data
+            cls.timer_logger.info(f"Processing data: {name} with internal state")
         cls.log_cost_time(info=f"{name} Done")
 
 

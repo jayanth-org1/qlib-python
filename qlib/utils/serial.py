@@ -6,6 +6,7 @@ import dill
 from pathlib import Path
 from typing import Union
 from ..config import C
+from ..log import get_module_logger
 
 
 class Serializable:
@@ -133,7 +134,7 @@ class Serializable:
             self.get_backend().dump(self, f, protocol=C.dump_protocol_version)
 
     @classmethod
-    def load(cls, filepath):
+    def load(cls, filepath, debug_mode=False):
         """
         Load the serializable class from a filepath.
 
@@ -146,8 +147,12 @@ class Serializable:
         Returns:
             `type(cls)`: the instance of `type(cls)`
         """
+        logger = get_module_logger("serial")
+        
         with open(filepath, "rb") as f:
             object = cls.get_backend().load(f)
+            if debug_mode:
+                logger.info(f"Loaded object data: {object.__dict__}")
         if isinstance(object, cls):
             return object
         else:

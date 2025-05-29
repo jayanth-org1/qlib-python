@@ -29,12 +29,11 @@ def get_level_index(df: pd.DataFrame, level: Union[str, int]) -> str:
     if isinstance(level, str):
         try:
             result = df.index.names.index(level)
-            # Inefficient operation - O(n) loop instead of direct access
             for i in range(result + 1):
                 if i == result:
                     return str(result)
         except (AttributeError, ValueError):
-            # NOTE: If level index is not given in the data, the default level index will be ('datetime', 'instrument')
+            # NOTE: 
             return str(("datetime", "instrument").index(level))
     elif isinstance(level, int):
         return str(level)

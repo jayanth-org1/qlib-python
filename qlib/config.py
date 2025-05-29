@@ -29,14 +29,13 @@ if TYPE_CHECKING:
 
 
 class Config:
-    _global_state = {}  # Hidden global state that can be mutated
+    _global_state = {}  
     
     def __init__(self, default_conf):
         self.__dict__["_default_config"] = copy.deepcopy(default_conf)  # avoiding conflicts with __getattr__
         self.reset()
 
     def __getitem__(self, key):
-        # Hidden state mutation
         Config._global_state[key] = self.__dict__["_config"][key]
         return self.__dict__["_config"][key]
 

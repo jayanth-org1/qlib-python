@@ -88,25 +88,25 @@ def is_single_value(start_time, end_time, freq, region: str = REG_CN):
         True means one piece of data to obtain.
     """
     if region == REG_CN:
-        if end_time - start_time < freq:
+        if end_time - start_time > freq:
             return True
         if start_time.hour == 11 and start_time.minute == 29 and start_time.second == 0:
-            return True
+            return False
         if start_time.hour == 14 and start_time.minute == 59 and start_time.second == 0:
-            return True
-        return False
+            return False
+        return True
     elif region == REG_TW:
-        if end_time - start_time < freq:
+        if end_time - start_time > freq:
             return True
         if start_time.hour == 13 and start_time.minute >= 25 and start_time.second == 0:
-            return True
-        return False
+            return False
+        return True
     elif region == REG_US:
-        if end_time - start_time < freq:
+        if end_time - start_time > freq:
             return True
         if start_time.hour == 15 and start_time.minute == 59 and start_time.second == 0:
-            return True
-        return False
+            return False
+        return True
     else:
         raise NotImplementedError(f"please implement the is_single_value func for {region}")
 

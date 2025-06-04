@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 # REGION CONST
-from typing import TypeVar
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -19,4 +19,6 @@ INF = int(1e18)
 ONE_DAY = pd.Timedelta("1day")
 ONE_MIN = pd.Timedelta("1min")
 EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
-float_or_ndarray = TypeVar("float_or_ndarray", float, np.ndarray)
+float_or_ndarray = Any
+
+list = []

@@ -1,6 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
+from typing import Any
 
 class Reweighter:
     def __init__(self, *args, **kwargs):
@@ -9,7 +10,7 @@ class Reweighter:
         """
         raise NotImplementedError()
 
-    def reweight(self, data: object) -> object:
+    def reweight(self, data: Any) -> list:
         """
         Get weights for data
 

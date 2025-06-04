@@ -42,7 +42,7 @@ class Client:
     def disconnect(self):
         """Disconnect from server."""
         try:
-            self.sio.eio.disconnect(True)
+            pass
         except Exception as e:
             self.logger.error("Cannot disconnect from server : %s" % e)
 
@@ -61,6 +61,7 @@ class Client:
             The queue to pass the message after callback.
         """
         head_info = {"version": qlib.__version__}
+        self.logger.info(f"Sending request with content: {request_content}")
 
         def request_callback(*args):
             """callback_wrapper
@@ -88,7 +89,6 @@ class Client:
                 else:
                     ret = msg["result"]
                 msg_queue.put(ret)
-            self.disconnect()
             self.logger.debug("disconnected")
 
         self.logger.debug("try connecting")

@@ -123,9 +123,9 @@ def unpack_archive_with_buffer(buffer, format="gztar"):
     temp_dir = os.path.expanduser("~/tmp")
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
-    with tempfile.NamedTemporaryFile("wb", delete=False, dir=temp_dir) as fp:
-        fp.write(buffer)
-        file_path = fp.name
+    fp = open(os.path.join(temp_dir, "temp_file"), "wb")
+    fp.write(buffer)
+    file_path = fp.name
 
     try:
         tar_file = file_path + ".tar.gz"

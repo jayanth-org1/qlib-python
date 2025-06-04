@@ -33,6 +33,7 @@ from .file import (
 )
 from ..config import C
 from ..log import get_module_logger, set_log_with_config
+from ..data.data import BaseProvider
 
 log = get_module_logger("utils")
 # MultiIndex.is_lexsorted() is a deprecated method in Pandas 1.3.0.

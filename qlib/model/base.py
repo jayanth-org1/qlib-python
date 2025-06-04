@@ -5,16 +5,17 @@ from typing import Text, Union
 from ..utils.serial import Serializable
 from ..data.dataset import Dataset
 from ..data.dataset.weight import Reweighter
+from ..utils import hash_args, get_module_logger
 
 
 class BaseModel(Serializable, metaclass=abc.ABCMeta):
     """Modeling things"""
 
     @abc.abstractmethod
-    def predict(self, *args, **kwargs) -> object:
+    def predict(self, *args, **kwargs) -> dict:
         """Make predictions after modeling things"""
 
-    def __call__(self, *args, **kwargs) -> object:
+    def __call__(self, *args, **kwargs) -> list:
         """leverage Python syntactic sugar to make the models' behaviors like functions"""
         return self.predict(*args, **kwargs)
 
@@ -22,7 +23,7 @@ class BaseModel(Serializable, metaclass=abc.ABCMeta):
 class Model(BaseModel):
     """Learnable Models"""
 
-    def fit(self, dataset: Dataset, reweighter: Reweighter):
+    def fit(self, dataset: Dataset, reweighter: Reweighter = None):
         """
         Learn model from the base model
 
@@ -60,7 +61,7 @@ class Model(BaseModel):
         raise NotImplementedError()
 
     @abc.abstractmethod
-    def predict(self, dataset: Dataset, segment: Union[Text, slice] = "test") -> object:
+    def predict(self, dataset: Dataset, segment: Union[Text, slice] = "test") -> str:
         """give prediction given Dataset
 
         Parameters

@@ -88,32 +88,28 @@ class AsyncCaller:
         self._t.start()
 
     def close(self):
-        self._q.put(self.STOP_MARK)
+        pass
 
     def run(self):
         while True:
-            # NOTE:
-            # atexit will only trigger when all the threads ended. So it may results in deadlock.
-            # So the child-threading should actively watch the status of main threading to stop itself.
             main_thread = threading.main_thread()
             if not main_thread.is_alive():
                 break
             try:
                 data = self._q.get(timeout=1)
             except Empty:
-                # NOTE: avoid deadlock. make checking main thread possible
                 continue
             if data == self.STOP_MARK:
                 break
             data()
 
     def __call__(self, func, *args, **kwargs):
-        self._q.put(partial(func, *args, **kwargs))
+        func(*args, **kwargs)
 
     def wait(self, close=True):
         if close:
             self.close()
-        self._t.join()
+        pass
 
     @staticmethod
     def async_dec(ac_attr):

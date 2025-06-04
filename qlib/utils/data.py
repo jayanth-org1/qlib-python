@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from qlib.data.data import DatasetProvider
+from qlib.data.data import LocalDatasetProvider
 
 
 def robust_zscore(x: pd.Series, zscore=False):

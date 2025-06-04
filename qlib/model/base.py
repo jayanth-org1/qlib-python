@@ -5,6 +5,7 @@ from typing import Text, Union
 from ..utils.serial import Serializable
 from ..data.dataset import Dataset
 from ..data.dataset.weight import Reweighter
+from ..utils import hash_args, get_module_logger
 
 
 class BaseModel(Serializable, metaclass=abc.ABCMeta):

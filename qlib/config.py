@@ -23,6 +23,7 @@ from typing import Callable, Optional, Union
 from typing import TYPE_CHECKING
 
 from qlib.constant import REG_CN, REG_US, REG_TW
+from qlib.utils import hash_args, get_module_logger
 
 if TYPE_CHECKING:
     from qlib.utils.time import Freq

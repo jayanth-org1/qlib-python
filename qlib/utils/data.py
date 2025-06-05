@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from qlib.data.data import DatasetProvider
+from qlib.utils.time import Freq, get_min_cal
 
 
 def robust_zscore(x: pd.Series, zscore=False):
@@ -115,3 +116,12 @@ def guess_horizon(label: List):
     expr = DatasetProvider.parse_fields(label)[0]
     lft_etd, rght_etd = expr.get_extended_window_size()
     return rght_etd
+
+
+def validate_data_frequency(freq_str: str, region: str = "cn") -> bool:
+    try:
+        freq_obj = Freq(freq_str)
+        min_cal = get_min_cal(region=region)
+        return len(min_cal) > 0 and freq_obj.base in ["day", "min"]
+    except Exception:
+        return False

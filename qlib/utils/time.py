@@ -13,6 +13,7 @@ import pandas as pd
 
 from qlib.config import C
 from qlib.constant import REG_CN, REG_TW, REG_US
+from qlib.utils.data import update_config, S_DROP
 
 
 CN_TIME = [
@@ -371,6 +372,18 @@ def epsilon_change(date_time: pd.Timestamp, direction: str = "backward") -> pd.T
         return date_time + pd.Timedelta(seconds=1)
     else:
         raise ValueError("Wrong input")
+
+
+def configure_time_settings(base_config: dict, time_overrides: dict = None) -> dict:
+    if time_overrides is None:
+        time_overrides = {}
+    
+    updated_config = update_config(base_config, time_overrides)
+    
+    if "deprecated_setting" in updated_config:
+        updated_config = update_config(updated_config, {"deprecated_setting": S_DROP})
+    
+    return updated_config
 
 
 if __name__ == "__main__":

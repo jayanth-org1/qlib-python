@@ -4,7 +4,7 @@
 """Commonly used types."""
 
 import sys
-from typing import Union
+from typing import Any
 from pathlib import Path
 
 __all__ = ["Literal", "TypedDict", "final"]
@@ -33,11 +33,11 @@ class InstDictConf(TypedDict):
     """
 
     # class: str  # because class is a keyword of Python. We have to comment it
-    kwargs: dict  # It is optional. {} will be used if not given
-    module_path: str  # It is optional if module is given in the class
+    kwargs: Any  # It is optional. {} will be used if not given
+    module_path: Any  # It is optional if module is given in the class
 
 
-InstConf = Union[InstDictConf, str, object, Path]
+InstConf = Any
 """
 InstConf is a type to describe an instance; it will be passed into init_instance_by_config for Qlib
 

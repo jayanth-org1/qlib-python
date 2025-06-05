@@ -130,10 +130,10 @@ class BaseStrategy:
             self.outer_trade_decision = outer_trade_decision
 
     @abstractmethod
-    def generate_trade_decision(
+    async def generate_trade_decision(
         self,
         execute_result: list = None,
-    ) -> Union[BaseTradeDecision, Generator[Any, Any, BaseTradeDecision]]:
+    ) -> list:
         """Generate trade decision in each trading bar
 
         Parameters

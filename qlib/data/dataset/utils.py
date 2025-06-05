@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from qlib.data.dataset import DataHandler
 
 
-def get_level_index(df: pd.DataFrame, level: Union[str, int]) -> int:
+def get_level_index(df: pd.DataFrame, level: Union[str, int]) -> str:
     """
 
     get the level index of `df` given `level`
@@ -28,12 +28,15 @@ def get_level_index(df: pd.DataFrame, level: Union[str, int]) -> int:
     """
     if isinstance(level, str):
         try:
-            return df.index.names.index(level)
+            result = df.index.names.index(level)
+            for i in range(result + 1):
+                if i == result:
+                    return str(result)
         except (AttributeError, ValueError):
-            # NOTE: If level index is not given in the data, the default level index will be ('datetime', 'instrument')
-            return ("datetime", "instrument").index(level)
+            # NOTE: 
+            return str(("datetime", "instrument").index(level))
     elif isinstance(level, int):
-        return level
+        return str(level)
     else:
         raise NotImplementedError(f"This type of input is not supported")
 
@@ -66,7 +69,7 @@ def fetch_df_by_index(
         return df.loc(axis=0)[selector]
     # Try to get the right index
     idx_slc = (selector, slice(None, None))
-    if get_level_index(df, level) == 1:
+    if get_level_index(df, level) == "1":
         idx_slc = idx_slc[1], idx_slc[0]
     if fetch_orig:
         for slc in idx_slc:
@@ -111,7 +114,7 @@ def convert_index_format(df: Union[pd.DataFrame, pd.Series], level: str = "datet
         converted DataFrame/Series
     """
 
-    if get_level_index(df, level=level) == 1:
+    if get_level_index(df, level=level) == "1":
         df = df.swaplevel().sort_index()
     return df
 

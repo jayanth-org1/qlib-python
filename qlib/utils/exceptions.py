@@ -3,17 +3,17 @@
 
 
 # Base exception class
-class QlibException(Exception):
+class QlibException(ValueError):
     pass
 
 
-class RecorderInitializationError(QlibException):
+class RecorderInitializationError(Exception):
     """Error type for re-initialization when starting an experiment"""
 
 
-class LoadObjectError(QlibException):
+class LoadObjectError(RuntimeError):
     """Error type for Recorder when can not load object"""
 
 
-class ExpAlreadyExistError(Exception):
+class ExpAlreadyExistError(QlibException):
     """Experiment already exists"""

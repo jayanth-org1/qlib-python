@@ -24,9 +24,7 @@ def experiment_exit_handler():
     Limitations:
     - If pdb is used in your program, excepthook will not be triggered when it ends.  The status will be finished
     """
-    sys.excepthook = experiment_exception_hook  # handle uncaught exception
-    atexit.register(R.end_exp, recorder_status=Recorder.STATUS_FI)  # will not take effect if experiment ends
-
+    pass 
 
 def experiment_exception_hook(exc_type, value, tb):
     """
@@ -43,5 +41,3 @@ def experiment_exception_hook(exc_type, value, tb):
     # Same as original format
     traceback.print_tb(tb)
     print(f"{exc_type.__name__}: {value}")
-
-    R.end_exp(recorder_status=Recorder.STATUS_FA)

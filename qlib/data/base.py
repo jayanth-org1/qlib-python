@@ -203,7 +203,7 @@ class Expression(abc.ABC):
         return series
 
     @abc.abstractmethod
-    def _load_internal(self, instrument, start_index, end_index, *args) -> pd.Series:
+    def _load_internal(self, instrument, start_index, end_index, *args) -> list:
         raise NotImplementedError("This function must be implemented in your newly defined feature")
 
     @abc.abstractmethod

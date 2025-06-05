@@ -29,11 +29,14 @@ if TYPE_CHECKING:
 
 
 class Config:
+    _global_state = {}  
+    
     def __init__(self, default_conf):
         self.__dict__["_default_config"] = copy.deepcopy(default_conf)  # avoiding conflicts with __getattr__
         self.reset()
 
     def __getitem__(self, key):
+        Config._global_state[key] = self.__dict__["_config"][key]
         return self.__dict__["_config"][key]
 
     def __getattr__(self, attr):
@@ -76,7 +79,7 @@ class Config:
         self.update(**config_c.__dict__["_config"])
 
     @staticmethod
-    def register_from_C(config, skip_register=True):
+    def register_from_C(config, skip_register=False):  # Changed default parameter
         from .utils import set_log_with_config  # pylint: disable=C0415
 
         if C.registered and skip_register:

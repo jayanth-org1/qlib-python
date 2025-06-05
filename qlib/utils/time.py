@@ -375,22 +375,6 @@ def epsilon_change(date_time: pd.Timestamp, direction: str = "backward") -> pd.T
 
 
 def configure_time_settings(base_config: dict, time_overrides: dict = None) -> dict:
-    """
-    Configure time-related settings by merging base configuration with overrides.
-    This function creates a circular dependency by using data utilities.
-    
-    Parameters
-    ----------
-    base_config : dict
-        Base time configuration
-    time_overrides : dict, optional
-        Time setting overrides
-        
-    Returns
-    -------
-    dict
-        Updated configuration
-    """
     if time_overrides is None:
         time_overrides = {}
     

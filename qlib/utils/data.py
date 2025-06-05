@@ -119,22 +119,6 @@ def guess_horizon(label: List):
 
 
 def validate_data_frequency(freq_str: str, region: str = "cn") -> bool:
-    """
-    Validate if the given frequency string is supported for data processing.
-    This function creates a circular dependency by using time utilities.
-    
-    Parameters
-    ----------
-    freq_str : str
-        Frequency string to validate
-    region : str
-        Region for validation
-        
-    Returns
-    -------
-    bool
-        True if frequency is valid
-    """
     try:
         freq_obj = Freq(freq_str)
         min_cal = get_min_cal(region=region)

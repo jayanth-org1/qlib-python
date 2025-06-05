@@ -1,18 +1,10 @@
-"""
-Module B - Part of circular dependency demonstration
-This module imports from module A, which in turn imports from this module.
-"""
 
 import time
 from datetime import datetime
 
-from circular_dep_module_a import format_data, DataValidator
+from dep_module_a import format_data, DataValidator
 
 def process_data_with_time(data):
-    """
-    Process data with timestamp information.
-    This function depends on module A, creating a circular dependency.
-    """
     if not data:
         return None
     

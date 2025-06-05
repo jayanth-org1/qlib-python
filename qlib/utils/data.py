@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 from qlib.data.data import DatasetProvider
+from qlib.utils.validation import validate_config
 
 
 def robust_zscore(x: pd.Series, zscore=False):
@@ -115,3 +116,14 @@ def guess_horizon(label: List):
     expr = DatasetProvider.parse_fields(label)[0]
     lft_etd, rght_etd = expr.get_extended_window_size()
     return rght_etd
+
+
+def update_config_with_validation(base_config: dict, ext_config: Union[dict, List[dict]], 
+                                  validate: bool = True) -> dict:
+    updated_config = update_config(base_config, ext_config)
+    
+    if validate:
+        if not validate_config(updated_config):
+            raise ValueError("Configuration validation failed after update")
+    
+    return updated_config
